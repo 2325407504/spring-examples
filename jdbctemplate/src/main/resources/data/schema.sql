@@ -1,0 +1,1 @@
+create table Person(id INT, firstName VARCHAR(255), lastName VARCHAR(255), active BOOLEAN );

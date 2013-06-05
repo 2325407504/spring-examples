@@ -1,10 +1,18 @@
+# Java
 *.class
 
 # Package Files #
 *.jar
 *.war
 *.ear
-
+# Mac
 .DS_Store
 
+# Vim
 *.swp
+
+# Eclipse
+.classpath
+.project
+.settings/
+target/
