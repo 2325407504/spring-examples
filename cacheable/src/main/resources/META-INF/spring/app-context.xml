@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+	<description>JdbcTemplate Example</description>
+
+	<context:component-scan base-package="gopivotal.examples.spring.cacheable" />
+
+	<!-- Enable @Cache* annotations -->
+	<cache:annotation-driven />
+
+	<!-- generic cache manager -->
+	<bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
+	    <property name="caches">
+	    <set>
+	        <bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" p:name="books"/>
+	        <bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" p:name="bookQuery"/>
+	    </set>
+	    </property>
+	</bean>
+
+	<bean id="book" class="gopivotal.examples.spring.cacheable.Book"
+		abstract="true" />
+	<bean id="bookList" class="java.util.ArrayList" scope="prototype">
+		<constructor-arg>
+			<list>
+				<bean parent="book" p:id="1" p:title="Nunc Lectus Pede LLP" />
+				<bean parent="book" p:id="2" p:title="Duis Mi Corp." />
+				<bean parent="book" p:id="3" p:title="Luctus Consulting" />
+				<bean parent="book" p:id="4" p:title="Malesuada Ut Incorporated" />
+				<bean parent="book" p:id="5" p:title="Sed Company" />
+				<bean parent="book" p:id="6" p:title="Habitant Morbi Tristique Ltd" />
+				<bean parent="book" p:id="7" p:title="Arcu Institute" />
+				<bean parent="book" p:id="8" p:title="Volutpat Ornare Ltd" />
+				<bean parent="book" p:id="9" p:title="Interdum Nunc Foundation" />
+				<bean parent="book" p:id="10" p:title="Fringilla Incorporated" />
+				<bean parent="book" p:id="11" p:title="Euismod Mauris Eu PC" />
+				<bean parent="book" p:id="12" p:title="Elit Consulting" />
+				<bean parent="book" p:id="13" p:title="Nulla Integer Corp." />
+				<bean parent="book" p:id="14" p:title="Posuere Cubilia Incorporated" />
+				<bean parent="book" p:id="15" p:title="Luctus Curabitur LLC" />
+				<bean parent="book" p:id="16" p:title="Suspendisse Sed Inc." />
+				<bean parent="book" p:id="17" p:title="Venenatis Institute" />
+				<bean parent="book" p:id="18" p:title="Dictum Eleifend Nunc Corp." />
+				<bean parent="book" p:id="19" p:title="Vivamus Nibh Company" />
+				<bean parent="book" p:id="20" p:title="Fusce LLP" />
+				<bean parent="book" p:id="21" p:title="Nunc Ut PC" />
+				<bean parent="book" p:id="22" p:title="Quis LLC" />
+				<bean parent="book" p:id="23" p:title="Mi Inc." />
+				<bean parent="book" p:id="24" p:title="Vulputate Ltd" />
+				<bean parent="book" p:id="25" p:title="Vitae Risus Company" />
+				<bean parent="book" p:id="26" p:title="Dictum Eleifend Nunc Limited" />
+				<bean parent="book" p:id="27" p:title="Dictum Incorporated" />
+				<bean parent="book" p:id="28" p:title="Nec Luctus Felis Institute" />
+				<bean parent="book" p:id="29" p:title="Duis Volutpat Nunc Foundation" />
+				<bean parent="book" p:id="30" p:title="Ac Feugiat Non Industries" />
+				<bean parent="book" p:id="31" p:title="Quam Company" />
+				<bean parent="book" p:id="32" p:title="A Sollicitudin Orci LLP" />
+				<bean parent="book" p:id="33" p:title="Sem Incorporated" />
+				<bean parent="book" p:id="34" p:title="Sit Amet LLP" />
+				<bean parent="book" p:id="35" p:title="Luctus Inc." />
+				<bean parent="book" p:id="36" p:title="Ridiculus Foundation" />
+				<bean parent="book" p:id="37" p:title="Aliquet Lobortis Incorporated" />
+				<bean parent="book" p:id="38" p:title="Neque In Ornare Institute" />
+				<bean parent="book" p:id="39" p:title="Quam A Felis PC" />
+				<bean parent="book" p:id="40" p:title="Id Risus Limited" />
+				<bean parent="book" p:id="41" p:title="Enim Consulting" />
+				<bean parent="book" p:id="42" p:title="Amet Dapibus LLC" />
+				<bean parent="book" p:id="43" p:title="A Feugiat Tellus Institute" />
+				<bean parent="book" p:id="44" p:title="Semper Incorporated" />
+				<bean parent="book" p:id="45" p:title="Est Vitae Corporation" />
+				<bean parent="book" p:id="46"
+					p:title="Malesuada Malesuada Integer Associates" />
+				<bean parent="book" p:id="47" p:title="Interdum Curabitur Limited" />
+				<bean parent="book" p:id="48" p:title="Sagittis Semper Nam Company" />
+				<bean parent="book" p:id="49" p:title="Ac Mi LLP" />
+				<bean parent="book" p:id="50" p:title="Lobortis Foundation" />
+				<bean parent="book" p:id="51" p:title="Enim Gravida Sit Inc." />
+				<bean parent="book" p:id="52" p:title="Et Netus Et Institute" />
+				<bean parent="book" p:id="53" p:title="Natoque Limited" />
+				<bean parent="book" p:id="54" p:title="Ac Nulla In Consulting" />
+				<bean parent="book" p:id="55" p:title="At LLP" />
+				<bean parent="book" p:id="56" p:title="Vestibulum Company" />
+				<bean parent="book" p:id="57" p:title="Suspendisse Corporation" />
+				<bean parent="book" p:id="58" p:title="Facilisi Sed Neque Incorporated" />
+				<bean parent="book" p:id="59" p:title="Nulla In Tincidunt Corporation" />
+				<bean parent="book" p:id="60" p:title="In LLC" />
+				<bean parent="book" p:id="61" p:title="Suscipit Est Ac Associates" />
+				<bean parent="book" p:id="62" p:title="Nunc Foundation" />
+				<bean parent="book" p:id="63" p:title="Donec Sollicitudin Adipiscing LLC" />
+				<bean parent="book" p:id="64" p:title="Donec Feugiat Corp." />
+				<bean parent="book" p:id="65" p:title="In Tempus Incorporated" />
+				<bean parent="book" p:id="66" p:title="Nec Tempus Scelerisque LLC" />
+				<bean parent="book" p:id="67" p:title="Lectus Nullam Suscipit Associates" />
+				<bean parent="book" p:id="68" p:title="Adipiscing Company" />
+				<bean parent="book" p:id="69" p:title="Cras Convallis Institute" />
+				<bean parent="book" p:id="70" p:title="At Augue PC" />
+				<bean parent="book" p:id="71" p:title="Eget Laoreet Posuere Inc." />
+				<bean parent="book" p:id="72" p:title="Et Pede Nunc Ltd" />
+				<bean parent="book" p:id="73" p:title="Malesuada Fames Associates" />
+				<bean parent="book" p:id="74" p:title="Fusce Mollis Duis Consulting" />
+				<bean parent="book" p:id="75" p:title="Faucibus Leo In Corporation" />
+				<bean parent="book" p:id="76" p:title="Elit PC" />
+				<bean parent="book" p:id="77" p:title="Mollis Vitae Inc." />
+				<bean parent="book" p:id="78" p:title="Torquent Per Ltd" />
+				<bean parent="book" p:id="79" p:title="Proin Non Limited" />
+				<bean parent="book" p:id="80" p:title="Est Foundation" />
+				<bean parent="book" p:id="81" p:title="Suspendisse Dui Fusce Foundation" />
+				<bean parent="book" p:id="82" p:title="Nec Institute" />
+				<bean parent="book" p:id="83" p:title="Aliquam Arcu PC" />
+				<bean parent="book" p:id="84" p:title="Neque Sed Associates" />
+				<bean parent="book" p:id="85" p:title="Neque LLP" />
+				<bean parent="book" p:id="86" p:title="Enim Mi Industries" />
+				<bean parent="book" p:id="87" p:title="Vitae Corp." />
+				<bean parent="book" p:id="88" p:title="Nulla LLC" />
+				<bean parent="book" p:id="89" p:title="Est Mauris Rhoncus Consulting" />
+				<bean parent="book" p:id="90" p:title="At Auctor Corp." />
+				<bean parent="book" p:id="91" p:title="Egestas Company" />
+				<bean parent="book" p:id="92" p:title="Neque Nullam Ut Foundation" />
+				<bean parent="book" p:id="93" p:title="Sapien Cursus Institute" />
+				<bean parent="book" p:id="94" p:title="Dolor PC" />
+				<bean parent="book" p:id="95" p:title="Molestie LLC" />
+				<bean parent="book" p:id="96" p:title="Tristique Neque Inc." />
+				<bean parent="book" p:id="97" p:title="Posuere PC" />
+				<bean parent="book" p:id="98" p:title="Eu Erat LLC" />
+				<bean parent="book" p:id="99" p:title="Purus Nullam Scelerisque Limited" />
+				<bean parent="book" p:id="100" p:title="Sed Eget Lacus Associates" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<!-- Method timing interceptor, only for logging Service Method times. Remove 
+		the following lines and the AOP namespace if not needed. -->
+	<context:component-scan base-package="gopivotal.examples.spring.utils" />
+	<bean id="methodTimingAdvice" class="gopivotal.examples.spring.utils.MethodTimingAspect" />
+	<aop:config>
+		<aop:aspect id="methodTimingAspect" ref="methodTimingAdvice">
+			<aop:around method="logAround"
+				pointcut="execution(* gopivotal.examples.spring.cacheable.BookService.*(..))" />
+		</aop:aspect>
+	</aop:config>
+	<!-- END Method timing interceptor -->
+
+</beans>
