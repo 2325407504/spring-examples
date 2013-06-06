@@ -14,6 +14,7 @@
 
 	<description>JdbcTemplate Example</description>
 
+	<!-- Annotation Driven Beans -->
 	<context:component-scan base-package="gopivotal.examples.spring.cacheable" />
 
 	<!-- Enable @Cache* annotations -->
@@ -29,6 +30,27 @@
 	    </property>
 	</bean>
 
+	<!-- XML Based caching config (Make sure to comment out the context:component-scan and cache:annotation-driven tags above)
+	
+	<bean id="slowBookService" class="gopivotal.examples.spring.cacheable.SlowInMemoryBookService" p:books-ref="bookList" />
+	<bean id="cachedBookService" class="gopivotal.examples.spring.cacheable.CachedInMemoryBookService" p:books-ref="bookList" />
+	
+	<cache:advice id="cacheAdvice" cache-manager="cacheManager">
+	    <cache:caching cache="books">
+	        <cache:cacheable method="getBookById" unless="#result == null" />
+	        <cache:cache-evict method="deleteBook" key="#id" />
+	    </cache:caching>
+	    <cache:caching cache="bookQuery">
+	        <cache:cacheable method="getBooksWithTitlesStartingWith" />
+	        <cache:cache-evict method="deleteBook" all-entries="true" />
+	    </cache:caching>
+	</cache:advice>
+	
+	<aop:config>
+	    <aop:advisor advice-ref="cacheAdvice" pointcut="execution(* gopivotal.examples.spring.cacheable.MutableBookService.*(..))"/>
+	</aop:config> -->
+	
+	<!-- Sample Data -->
 	<bean id="book" class="gopivotal.examples.spring.cacheable.Book"
 		abstract="true" />
 	<bean id="bookList" class="java.util.ArrayList" scope="prototype">
@@ -138,7 +160,7 @@
 			</list>
 		</constructor-arg>
 	</bean>
-
+	
 	<!-- Method timing interceptor, only for logging Service Method times. Remove 
 		the following lines and the AOP namespace if not needed. -->
 	<context:component-scan base-package="gopivotal.examples.spring.utils" />

@@ -5,6 +5,8 @@ package gopivotal.examples.spring.utils;
 
 import org.apache.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.util.StopWatch;
 
 /**
@@ -12,7 +14,9 @@ import org.springframework.util.StopWatch;
  * 
  * @author cdelashmutt
  */
+@Order(value=Ordered.HIGHEST_PRECEDENCE)
 public class MethodTimingAspect
+implements Ordered
 {
 	private final static Logger log = Logger.getLogger(MethodTimingAspect.class);
 	
@@ -33,5 +37,15 @@ public class MethodTimingAspect
 			log.trace("Method took (ms): " + sw.getTotalTimeMillis());
 		}
 		return returnValue;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.springframework.core.Ordered#getOrder()
+	 */
+	@Override
+	public int getOrder()
+	{
+		// TODO Auto-generated method stub
+		return Ordered.HIGHEST_PRECEDENCE;
 	}
 }

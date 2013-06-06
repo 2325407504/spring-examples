@@ -27,7 +27,7 @@ implements MutableBookService
 	 * @see gopivotal.examples.spring.cacheable.SlowInMemoryBookService#getBookById(int)
 	 */
 	@Override
-	@Cacheable("books")
+	@Cacheable(value="books", unless="#result == null")
 	public Book getBookById(int id)
 	{
 		// TODO Auto-generated method stub
@@ -38,7 +38,7 @@ implements MutableBookService
 	 * @see gopivotal.examples.spring.cacheable.SlowInMemoryBookService#getBooksWithTitlesStartingWith(java.lang.String)
 	 */
 	@Override
-	@Cacheable("bookQuery")
+	@Cacheable(value="bookQuery")
 	public List<Book> getBooksWithTitlesStartingWith(String starting)
 	{
 		// TODO Auto-generated method stub
