@@ -53,7 +53,7 @@
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>1.2.1</version>
 				<configuration>
-					<mainClass>gopivotal.examples.spring.jdbctemplate.Main</mainClass>
+					<mainClass>${project.groupId}.${project.artifactId}.Main</mainClass>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -95,6 +95,11 @@
 			<artifactId>aspectjweaver</artifactId>
 			<version>${aspectj.framework.version}</version>
 			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>utils</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 
 		<!-- Log4J for logging -->

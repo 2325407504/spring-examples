@@ -18,7 +18,14 @@
 		<jdbc:script location="classpath:data/test-data.sql" />
 	</jdbc:embedded-database>
 
-	<!-- Query timing interceptor, only for logging Service Method times.  Remove this and the AOP namespace if not needed.-->
-	<aop:aspectj-autoproxy/>
+	<!-- Method timing interceptor, only for logging Service Method times.  Remove the following lines and the AOP namespace if not needed.-->
+	<context:component-scan base-package="gopivotal.examples.spring.utils" />
+	<bean id="methodTimingAdvice" class="gopivotal.examples.spring.utils.MethodTimingAspect" />
+	<aop:config>
+		<aop:aspect id="methodTimingAspect" ref="methodTimingAdvice">
+			<aop:around method="logAround" pointcut="execution(* gopivotal.examples.spring.jdbctemplate.PersonService.*(..))"/>
+		</aop:aspect>
+	</aop:config>
+	<!-- END Method timing interceptor -->
 	
 </beans>

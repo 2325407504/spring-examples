@@ -1,13 +1,10 @@
 /**
  * Copyright GoPivotal, Inc.
  */
-package gopivotal.examples.spring.jdbctemplate;
+package gopivotal.examples.spring.utils;
 
 import org.apache.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 
 /**
@@ -15,13 +12,10 @@ import org.springframework.util.StopWatch;
  * 
  * @author cdelashmutt
  */
-@Component
-@Aspect
 public class MethodTimingAspect
 {
 	private final static Logger log = Logger.getLogger(MethodTimingAspect.class);
 	
-	@Around("execution(* gopivotal.examples.spring.jdbctemplate.PersonService.*(..))")
 	public Object logAround(ProceedingJoinPoint joinPoint)
 	throws Throwable
 	{
