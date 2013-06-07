@@ -20,6 +20,7 @@
 		
 		<!-- A collector for some utilities used by the examples -->
 		<module>utils</module>
+    <module>spring-data</module>
   </modules>
 
 	<issueManagement>
