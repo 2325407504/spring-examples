@@ -26,6 +26,9 @@
 		<prop key="log-level">warning</prop>
 	</util:properties>
 	
+	<!-- Transaction support
+	<gfe:transaction-manager id="tx-manager" cache-ref="cache"/> -->
+	
 	<gfe:partitioned-region id="posts" />
 	
 	<gfe-data:repositories base-package="gopivotal.examples.spring.springdata.gemfire" />

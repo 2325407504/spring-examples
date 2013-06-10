@@ -11,10 +11,21 @@
 	</appender>
 
 	<!-- Loggers -->
+	<!-- Examples -->
 	<logger name="gopivotal.examples.spring">
 		<level value="trace" />
 	</logger>
 
+	<!-- Transactions -->
+	<logger name="org.springframework.orm.jpa.JpaTransactionManager">
+		<level value="debug" />
+	</logger>
+
+	<!-- Quiet down some Hibernate messages -->
+	<logger name="org.hibernate.engine.jdbc.internal.JdbcCoordinatorImpl">
+		<level value="error" />
+	</logger>
+	
 	<!-- Root Logger -->
 	<root>
 		<priority value="warn" />

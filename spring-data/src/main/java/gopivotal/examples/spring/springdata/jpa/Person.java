@@ -4,6 +4,8 @@
 package gopivotal.examples.spring.springdata.jpa;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
@@ -13,24 +15,46 @@ import javax.persistence.Id;
  */
 @Entity
 public class Person
+extends AuditableEntity
 {
+	private static final long serialVersionUID = -6601051885360838467L;
+
 	@Id
-	int id;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	Integer id;
 	boolean active;
 	String firstName;
 	String lastName;
 
+	public Person()
+	{
+		super();
+	}
+	
+	/**
+	 * @param id
+	 * @param active
+	 * @param firstName
+	 * @param lastName
+	 */
+	public Person(String firstName, String lastName, boolean active)
+	{
+		super();
+		this.active = active;
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
 	/**
 	 * @return the id
 	 */
-	public int getId()
+	public Integer getId()
 	{
 		return id;
 	}
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(int id)
+	public void setId(Integer id)
 	{
 		this.id = id;
 	}
@@ -82,7 +106,19 @@ public class Person
 	@Override
 	public String toString()
 	{
-		return "Person [id=" + id + ", firstName=" + firstName + ", lastName="
-				+ lastName + ", active=" + active + "]";
+		return "Person [id=" + id + ", active=" + active + ", firstName="
+				+ firstName + ", lastName=" + lastName + ", createdBy="
+				+ getCreatedBy() + ", createdDate=" + getCreatedDate()
+				+ ", lastModifiedBy=" + getLastModifiedBy()
+				+ ", lastModifiedDate=" + getLastModifiedDate() + "]";
+	}
+
+	/* (non-Javadoc)
+	 * @see org.springframework.data.domain.Persistable#isNew()
+	 */
+	@Override
+	public boolean isNew()
+	{
+		return getId() == null;
 	}
 }
