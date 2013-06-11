@@ -68,8 +68,8 @@ public class Main
 						}
 					)
 				);
-				System.out.println("Serializing user: " + user);
-				System.out.println(xstreamService.serialize(user));
+				log.trace("Serializing user: " + user);
+				log.trace("Serialized user is: " + xstreamService.serialize(user));
 			}
 			else if (command.equals("2"))
 			{
@@ -78,7 +78,7 @@ public class Main
 						"<post><date>2011-10-25T16:12:00.981-04:00</date><text>Got to be more careful riding my bike.</text></post>" +
 						"</user>";
 				User user = xstreamService.deserialize(xml);
-				System.out.println("Deserialized user: " + user);
+				log.trace("Deserialized user is: " + user);
 			}
 			else if (command.equals("3"))
 			{
@@ -90,8 +90,8 @@ public class Main
 						}
 					)
 				);
-				System.out.println("Serializing user: " + user);
-				System.out.println(jaxb2Service.serialize(user));
+				log.trace("Serializing user: " + user);
+				log.trace("Serialized user is: " + jaxb2Service.serialize(user));
 			}
 			else if (command.equals("4"))
 			{
@@ -103,7 +103,7 @@ public class Main
 						"</posts>" +
 						"</user>";
 				User user = jaxb2Service.deserialize(xml);
-				System.out.println("Deserialized user: " + user);
+				log.trace("Deserialized user is: " + user);
 			}
 			else
 			{
