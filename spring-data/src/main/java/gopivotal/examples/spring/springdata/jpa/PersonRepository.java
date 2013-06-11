@@ -23,8 +23,8 @@ public interface PersonRepository
 	extends CrudRepository<Person, Integer>,
 	JpaSpecificationExecutor<Person>
 {
-	public List<Person> findByActive(boolean active);
-	public List<Person> findByLastNameStartingWithOrderByFirstNameAsc(String starting);
+	public List<Person> findByActive(@Param("active") boolean active);
+	public List<Person> findByLastNameStartingWithOrderByFirstNameAsc(@Param("starting") String starting);
 	
 	@Query("from Person p where p.active=true and p.firstName like %:firstName% order by p.firstName")
 	public List<Person> findActiveByFirstName(@Param("firstName") String firstName);

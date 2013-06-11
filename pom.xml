@@ -21,6 +21,7 @@
 		<!-- A collector for some utilities used by the examples -->
 		<module>utils</module>
     <module>spring-data</module>
+    <module>spring-data-rest</module>
   </modules>
 
 	<issueManagement>
