@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:hdp="http://www.springframework.org/schema/hadoop" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
+		http://www.springframework.org/schema/hadoop http://www.springframework.org/schema/hadoop/spring-hadoop.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+	<description>Spring Data Hadoop Example</description>
+
+	<context:component-scan base-package="gopivotal.examples.spring.hadoop" />
+
+	<!-- Need to pass in a localFile system property -->
+	<context:property-placeholder properties-ref="jobProperties" />
+	<util:properties id="jobProperties">
+		<prop key="inputPath">/shdp-input</prop>
+		<prop key="outputPath">/shdp-output</prop>
+	</util:properties>
+
+	<hdp:configuration>
+		fs.default.name=hdfs://localhost:8020
+	</hdp:configuration>
+
+	<hdp:script id="listFilesystem" language="javascript">
+		fsh.ls("/")
+	</hdp:script>
+
+	<hdp:script id="prepareWordCount" language="javascript">
+		inputPath = "${inputPath}";
+		outputPath = "${outputPath}";
+		localFile = "${localFile}";
+		
+		try{ fsh.rm(true,inputPath) } catch(error){};
+		try{ fsh.rm(true,outputPath) } catch(error){};
+		fsh.mkdir(inputPath);
+		fsh.copyFromLocal(localFile, inputPath);
+	</hdp:script>
+
+	<hdp:script id="getOutputContent" language="javascript">
+			fsh.cat("${outputPath}"+"/part-r-00000");
+	</hdp:script>
+
+	<hdp:job id="wordCountJob" input-path="${inputPath}"
+		output-path="${outputPath}" mapper="gopivotal.examples.spring.hadoop.WordCountMapper"
+		reducer="gopivotal.examples.spring.hadoop.IntSumReducer" />
+
+	<hdp:job-runner id="wordCountRunner" job-ref="wordCountJob" pre-action="prepareWordCount" />
+</beans>
