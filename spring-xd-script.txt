@@ -49,4 +49,7 @@ curl -X DELETE http://localhost:8080/streams/hdfslogcount
 
 curl -X DELETE http://localhost:8080/streams/hdfslog
 
+hadoop dfs -rmr /xd
+
+
 
