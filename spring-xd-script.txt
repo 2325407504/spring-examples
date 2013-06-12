@@ -1,0 +1,52 @@
+./xd/bin/xd-singlenode
+./redis/bin/redis-server
+
+
+Clock:
+curl -d "time | log" http://localhost:8080/streams/ticktock
+
+curl -X DELETE http://localhost:8080/streams/ticktock
+
+
+Http Log:
+curl -d "http | log" http://localhost:8080/streams/httplog
+
+curl -d "test" http://localhost:9000
+
+curl -X DELETE http://localhost:8080/streams/httplog
+
+
+Processors Reverse String:
+curl -d "http | transform --expression='new java.lang.StringBuilder(payload).reverse().toString()' | log" http://localhost:8080/streams/reversehttplog
+
+curl -d "Awesome" http://localhost:9000
+
+curl -X DELETE http://localhost:8080/streams/reversehttplog
+
+
+HDFS Ingest:
+curl -d "tcp | hdfs --rollover=10" http://localhost:8080/streams/hdfslog
+
+telnet localhost 1234
+
+hadoop dfs -ls /xd
+
+hadoop dfs -ls /xd/hdfslog
+
+hadoop dfs -cat /xd/hdfslog-0.log
+
+
+Entry Count Tap:
+curl -d "tap@hdfslog | counter --name=recordcount" http://localhost:8080/streams/hdfslogcount
+
+telnet localhost 1234
+
+./redis/bin/redis-cli
+get counters.recordcount
+del counters.recordcount
+
+curl -X DELETE http://localhost:8080/streams/hdfslogcount
+
+curl -X DELETE http://localhost:8080/streams/hdfslog
+
+
